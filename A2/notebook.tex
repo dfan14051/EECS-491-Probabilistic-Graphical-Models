@@ -1,0 +1,606 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Exercise\_1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{EECS 491: Probabilistic Graphical Models Assignment
+2}\label{eecs-491-probabilistic-graphical-models-assignment-2}
+
+\textbf{David Fan}
+
+3/7/18
+
+\section{Exercise 1}\label{exercise-1}
+
+    \subsection{Problem Setup}\label{problem-setup}
+
+    Let us say that we are interested in being able to determine whether or
+not I will be late for class (\(L\)) and whether a classmate will be
+late for class (\(C\)). Whether or not I will be late for class is
+effected by two things: * If I oversleep (\(O\)) * If the bus is late
+(\(B\))
+
+The bus being late also impacts whether or not a classmate will be late
+for class. Whether or not I oversleep is effected by whether or not my
+alarm goes off (\(A\)).
+
+From experience I have a prior belief that my alarm will go off with
+probability .96. I have a prior belief that given that my alarm goes
+off, I will oversleep with probability .08, and if my alarm doesn't go
+off, I will oversleep with probability .98. I also have a prior belief
+that my oversleeping does not have any effect on whether my classmate is
+late for class.
+
+Also from my experience, I have a prior belief that the bus will be late
+(\(B\)) with probability .2. I estimate that if the bus is late and I
+oversleep, I will be late with probability .96. If the bus is late and I
+don't oversleep, I will be late with probability .78. If the bus isn't
+late and I oversleep, I'll be late with probability .8. If the bus isn't
+late and I don't oversleep, I'll be late with probability .03. If the
+bus is late, I estimate that my classmate will be late with probability
+.8. If the bus isn't late, I estimate that my classmate will be late
+with probability .1 These probabilities are summarized in the tables
+below:
+
+\[
+\begin{aligned}
+P(A) & = 0.96\\
+P(B) & = .2
+\end{aligned}
+\]
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+& A = false & A = true\tabularnewline
+\midrule
+\endhead
+O = false & 0.02 & 0.92\tabularnewline
+O = true & 0.98 & 0.08\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+\begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
+\strut
+\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright\strut
+B = false, O = false\strut
+\end{minipage} & \begin{minipage}[b]{0.19\columnwidth}\raggedright\strut
+B = false, O = true\strut
+\end{minipage} & \begin{minipage}[b]{0.19\columnwidth}\raggedright\strut
+B = true, O = false\strut
+\end{minipage} & \begin{minipage}[b]{0.18\columnwidth}\raggedright\strut
+B = true, O = true\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+L = false\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+0.97\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+0.2\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+0.22\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright\strut
+0.04\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+L = true\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+0.03\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+0.8\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+0.78\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright\strut
+0.96\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+& B = false & B = true\tabularnewline
+\midrule
+\endhead
+C = false & 0.9 & 0.2\tabularnewline
+C = true & 0.1 & 0.8\tabularnewline
+\bottomrule
+\end{longtable}
+
+    The model can be presented in the following graph:
+
+    We would like to know, if I am late to class and my classmate isn't,
+what is the probability that my alarm went off?
+
+\[
+P(A\; |\; L,\bar{C}) = \; ?
+\]
+
+    \subsection{Programatic Model Setup}\label{programatic-model-setup}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{pgmpy}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{BayesianModel} \PY{k}{as} \PY{n}{bysmodel}
+        \PY{k+kn}{from} \PY{n+nn}{pgmpy}\PY{n+nn}{.}\PY{n+nn}{factors}\PY{n+nn}{.}\PY{n+nn}{discrete} \PY{k}{import} \PY{n}{TabularCPD} \PY{k}{as} \PY{n}{tcpd}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{model} \PY{o}{=} \PY{n}{bysmodel}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{priorA} \PY{o}{=} \PY{n}{tcpd}\PY{p}{(}\PY{n}{variable}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{variable\PYZus{}card}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.04}\PY{p}{,} \PY{l+m+mf}{0.96}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n}{priorB} \PY{o}{=} \PY{n}{tcpd}\PY{p}{(}\PY{n}{variable}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{variable\PYZus{}card}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{p}{[}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{8}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{cpdO} \PY{o}{=} \PY{n}{tcpd}\PY{p}{(}\PY{n}{variable}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{variable\PYZus{}card}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} 
+                    \PY{n}{evidence}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{evidence\PYZus{}card}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+                    \PY{n}{values}\PY{o}{=}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.02}\PY{p}{,} \PY{l+m+mf}{0.92}\PY{p}{]}\PY{p}{,} 
+                            \PY{p}{[}\PY{l+m+mf}{0.98}\PY{p}{,} \PY{l+m+mf}{0.08}\PY{p}{]}\PY{p}{]}
+                   \PY{p}{)}
+        \PY{n}{cpdL} \PY{o}{=} \PY{n}{tcpd}\PY{p}{(}\PY{n}{variable}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{variable\PYZus{}card}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}
+                    \PY{n}{evidence}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{evidence\PYZus{}card}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+                    \PY{n}{values}\PY{o}{=}\PY{p}{[}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{97}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{22}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{04}\PY{p}{]}\PY{p}{,}
+                            \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{03}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{8}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{78}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{96}\PY{p}{]}\PY{p}{]}
+                   \PY{p}{)}
+        \PY{n}{cpdC} \PY{o}{=} \PY{n}{tcpd}\PY{p}{(}\PY{n}{variable}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{variable\PYZus{}card}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}
+                    \PY{n}{evidence}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{evidence\PYZus{}card}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+                    \PY{n}{values}\PY{o}{=}\PY{p}{[}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{9}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+                            \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{model}\PY{o}{.}\PY{n}{add\PYZus{}cpds}\PY{p}{(}\PY{n}{priorA}\PY{p}{,} \PY{n}{priorB}\PY{p}{,} \PY{n}{cpdO}\PY{p}{,} \PY{n}{cpdL}\PY{p}{,} \PY{n}{cpdC}\PY{p}{)}
+\end{Verbatim}
+
+
+    Now we can check if our model is valid:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{model}\PY{o}{.}\PY{n}{check\PYZus{}model}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} True
+\end{Verbatim}
+            
+    Our model is now set up in pgmpy. We can check the conditional
+probabilities of each variable to confirm that our model matches the
+setup of the problem.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{get\PYZus{}cpds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{get\PYZus{}cpds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{get\PYZus{}cpds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+╒═════╤══════╤══════╕
+│ A   │ A\_0  │ A\_1  │
+├─────┼──────┼──────┤
+│ O\_0 │ 0.02 │ 0.92 │
+├─────┼──────┼──────┤
+│ O\_1 │ 0.98 │ 0.08 │
+╘═════╧══════╧══════╛
+╒═════╤══════╤═════╤══════╤══════╕
+│ O   │ O\_0  │ O\_0 │ O\_1  │ O\_1  │
+├─────┼──────┼─────┼──────┼──────┤
+│ B   │ B\_0  │ B\_1 │ B\_0  │ B\_1  │
+├─────┼──────┼─────┼──────┼──────┤
+│ L\_0 │ 0.97 │ 0.2 │ 0.22 │ 0.04 │
+├─────┼──────┼─────┼──────┼──────┤
+│ L\_1 │ 0.03 │ 0.8 │ 0.78 │ 0.96 │
+╘═════╧══════╧═════╧══════╧══════╛
+╒═════╤═════╤═════╕
+│ B   │ B\_0 │ B\_1 │
+├─────┼─────┼─────┤
+│ C\_0 │ 0.9 │ 0.2 │
+├─────┼─────┼─────┤
+│ C\_1 │ 0.1 │ 0.8 │
+╘═════╧═════╧═════╛
+
+    \end{Verbatim}
+
+    \subsection{Bayesian Inference}\label{bayesian-inference}
+
+In the problem we are trying to solve the joint probability can be found
+as follows: \[
+\begin{align}
+P(x_1,...,x_n) &\equiv P(X_1=x_1 \land ... \land X_n = x_n) \\
+               & = \prod_{i=1}^n P(x_i \; |\; parents(X_i) ) \\
+P(A,O,B,L,C)   & = P(A)P(B)P(O \; | \; A)P(L\; |\; O,B)P(C\; |\; B) 
+\end{align}
+\]
+
+Now let us try to find the conditional probability for \(A\) given \(L\)
+and \(\bar{C}\) and utilize variable elimination to reduce the
+computation time from exponential to polynomial.
+
+First let's eliminate our evidence variables. Let us define a function
+for evidence potential:
+
+\[
+\delta(E_i,e_i) = \left\{
+                    \begin{array}{ll}
+                        1 & \quad if E_i=e_i \\
+                        0 & \quad if E_i \neq e_i
+                    \end{array}
+                 \right.
+\]
+
+Now let us begin by conditioning on variable \(C\) as we know it will
+take the value of \(\bar{c}\):
+
+\[
+m_{C}(B) = \sum_{C}P(C\; |\; B)\delta(C,\bar{c})
+\]
+
+So from,
+
+\[
+P(A)P(B)P(O \; | \; A)P(L\; |\; O,B)P(C\; |\; B)
+\]
+
+we reduce to,
+
+\[
+P(A)P(B)P(O \; | \; A)P(L\; |\; O,B)m_{C}(B)
+\]
+
+Now let us condition on variable \(L\) as we know it will take the value
+of \(l\):
+
+\[
+m_{L}(O,B) = \sum_L P(L\; |\; O,B)\delta(L, l)
+\]
+
+so we reduce to,
+
+\[
+P(A)P(B)P(O \; | \; A)m_{L}(O,B)m_{C}(B)
+\]
+
+Now let us attempt to eliminate the variable \(B\):
+
+\[
+m_B(O) = \sum_{B}P(B)m_L(O,B)m_C(B)
+\]
+
+so we reduce to,
+
+\[
+P(A)P(O \; | \; A)m_B(O)
+\]
+
+Now finally, let us attempt to eliminate the variable \(O\):
+
+\[
+m_O(A) = \sum_O P(O \; | \; A)m_B(O)
+\]
+
+so we reduce to,
+
+\[
+P(A)m_O(A)
+\]
+
+Now we must normalize this: \[
+P(A\; |\; L,\bar{C}) = \frac{P(A)m_O(A)}{\sum_AP(A)m_O(A)}
+\]
+
+    We can use pgmpy to compute the conditional probability
+\(P(A\; |\; L,\bar{C})\) to check our results:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{from} \PY{n+nn}{pgmpy}\PY{n+nn}{.}\PY{n+nn}{inference} \PY{k}{import} \PY{n}{VariableElimination} \PY{k}{as} \PY{n}{proc}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{infer} \PY{o}{=} \PY{n}{proc}\PY{p}{(}\PY{n}{model}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{infer}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{evidence}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+╒═════╤══════════╕
+│ A   │   phi(A) │
+╞═════╪══════════╡
+│ A\_0 │   0.2014 │
+├─────┼──────────┤
+│ A\_1 │   0.7986 │
+╘═════╧══════════╛
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
